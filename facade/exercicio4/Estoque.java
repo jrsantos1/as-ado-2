@@ -28,8 +28,8 @@ public class Estoque {
 
     public Integer getEstoqueProduto(Produto produto){
         for(Estoque estoques: estoque){
-            if(estoques.produto == produto){
-                return estoques.quantidade;
+            if(estoques.getProduto().equals(produto)){
+                return estoques.getQuantidade();
             }
         }
         return 0;
@@ -39,15 +39,21 @@ public class Estoque {
 
     }
     public void removeItem(Produto produto){
+        try{
         for(Estoque estoques: estoque){
-            if(estoques.produto == produto){
+            if(estoques.getProduto().equals(produto)){
                 estoque.remove(estoques);
+                System.out.println("Produto codigo " + produto.getCodigo() + " removido com sucesso!");
+                return;
             }
+        }
+        }catch (Exception e){
+            System.out.println(e + ": Erro ao remover produto de codigo " + produto.getCodigo());
         }
     }
     public void exibirEstoque() {
         for(Estoque estoques: estoque){
-            System.out.println(estoques);
+            System.out.println("Codigo Item: " + estoques.getProduto().getCodigo() + ". Quantidade: " + estoques.getQuantidade());
         }
     }
     public Produto getProduto() {
@@ -79,7 +85,7 @@ public class Estoque {
 
     public void atualizarQuantidadeProduto(Produto produto, Integer novoQuantidade) {
         for(Estoque estoques: estoque){
-            if(estoques.produto == produto){
+            if(estoques.getProduto().equals(produto)){
                 estoques.setQuantidade(novoQuantidade);
             }
         }
